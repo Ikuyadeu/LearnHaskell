@@ -1,23 +1,23 @@
 -- Coord.hs
 -- $ runghc Coord.hs
-import Text.Printf
+import           Text.Printf
 
 -- 座標の型
 type Coord = (Double, Double)
 
 --
 data Config = Config {rotAt :: Coord
-, theta :: Double
-, ofs :: (Double, Double)
+, theta                     :: Double
+, ofs                       :: (Double, Double)
 }
 
 type CoordConverter = Coord -> Coord
 
 trans :: (Double, Double) -> CoordConverter
-trans (dx, dy) = \(x, y) -> (x+dx, y+dy)
+trans (dx, dy) (x, y) = (x+dx, y+dy)
 
 rotate :: Double -> CoordConverter
-rotate t = \(x, y) -> (cos t * x - sin t * y, sin t * x + cos t * y)
+rotate t (x, y) = (cos t * x - sin t * y, sin t * x + cos t * y)
 
 transByConfig :: Config -> CoordConverter
 transByConfig config = trans (ofs config)
@@ -25,7 +25,7 @@ transByConfig config = trans (ofs config)
 rotateByConfig :: Config -> CoordConverter
 rotateByConfig config = postTrans . rotate (theta config) . preTrans where
 	rotateAt = rotAt config
-	preTrans = trans (rotate pi $ rotateAt)
+	preTrans = trans (rotate pi rotateAt)
 	postTrans = trans rotateAt
 
 convertByConfig :: Config -> CoordConverter
