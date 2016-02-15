@@ -1,5 +1,10 @@
 -- Coord.hs
--- $ runghc Coord.hs
+-- runghc chapter1/Coord.hs
+-- (-0.000000, -0.707107)
+-- (-0.707107, 0.000000)
+-- (0.000000, 0.707107)
+-- (0.707107, -0.000000)
+
 import           Text.Printf
 
 -- 座標の型
@@ -35,7 +40,7 @@ convertByConfig config = transByConfig config . rotateByConfig config
 main :: IO()
 main = do
 	let config = Config { rotAt = (0.5, 0.5), theta = pi / 4, ofs = (-0.5, -0.5) }
-	let unitRect = [(0, 0), (0, 1), (1,1),(1,0)]
+	let unitRect = [(0, 0), (0, 1), (1, 1),(1, 0)]
 
 	let convertedRect = map (convertByConfig config) unitRect
 	mapM_ (uncurry $ printf "(%.6f, %.6f)\n") convertedRect
