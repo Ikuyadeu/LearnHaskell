@@ -140,5 +140,21 @@ last' = foldl1 (\_ x -> x)
 sqrtSums :: Int
 sqrtSums = length (takeWhile (<1000) (scanl1 (+) (map sqrt [1..]))) + 1
 
-($) :: (a -> b) -> a -> b
-f $ x = f x
+-- ($) :: (a -> b) -> a -> b
+-- f $ x = f x
+
+-- (.) :: (b -> c) -> (a -> b) -> a -> c
+-- f . g = \x -> f (g x)
+
+sum' :: (Num a) => [a] -> a
+sum'= foldl (+) 0
+
+-- fn x = ceiling (negate (tan (cos (max 50 x))))
+fn = ceiling . negate . tan . cos . max 50
+
+oddSquareSum :: Integer
+oddSquareSum =
+	let
+	oddSquares = filter odd (map (^2) [1..])
+	belowLimit = takeWhile (<10000) oddSquares
+	in sum belowLimit
