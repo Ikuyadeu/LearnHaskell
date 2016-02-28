@@ -49,7 +49,8 @@ zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
 -- ghci> zipWith (flip' div) [2,2..] [10,8,6,4,2]
 -- [5,4,3,2,1]
 flip' :: (a -> b -> c) -> (b -> a -> c)
-flip' f y x = f x y
+flip' f x y = f y x
+-- flip' f = \x y -> f y x
 
 -- -- ghci> map (+3) [1,5,3,1,6]
 -- -- [4,8,6,4,9]
@@ -103,6 +104,38 @@ chain n
 		| odd n = n:chain (n*3 + 1)
 
 numLongChains :: Int
-numLongChains = length (filter isLong (map chain [1..100]))
-	where
-		isLong xs = length xs > 15
+numLongChains = length (filter (\xs -> length xs > 15) (map chain [1..100]))
+
+addThree :: (Num a) => a -> a -> a -> a
+addThree x y z = x + y + z
+-- addThree = \x -> \y -> \z -> x + y + z
+
+-- sum' :: (Num a) => [a] -> a
+-- sum' = foldl (+) 0
+
+elem' :: (Eq a) => a -> [a] -> Bool
+elem' y = foldl (\acc x -> ((x==y) || acc)) False
+
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr (\x acc -> f x : acc) []
+
+maximum' :: (Ord a) => [a] -> a
+maximum' = foldr1 (\x acc -> if x > acc then x else acc)
+
+reverse' :: [a] -> [a]
+reverse' = foldl (flip (:)) []
+
+product' :: (Num a) => [a] -> a
+product' = foldr1 (*)
+
+filter' :: (a -> Bool) -> [a] -> [a]
+filter' p = foldr (\x acc -> if p x then x : acc else acc) []
+
+head' :: [a] -> a
+head' = foldr1 const
+
+last' :: [a] -> a
+last' = foldl1 (\_ x -> x)
+
+sqrtSums :: Int
+sqrtSums = length (takeWhile (<1000) (scanl1 (+) (map sqrt [1..]))) + 1
