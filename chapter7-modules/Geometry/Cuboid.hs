@@ -10,4 +10,4 @@ area :: Float -> Float -> Float -> Float
 area a b c = rectangleArea a b * 2 + rectangleArea a c * 2 + rectangleArea c b * 2
 
 rectangleArea :: Float -> Float -> Float
-rectangleArea a b = a * b  
+rectangleArea a b = a * b
