@@ -22,4 +22,4 @@ module Shapes
 , nudge
 , baseCircle
 , baseRect
-) where 
+) where
