@@ -28,6 +28,7 @@ baseCircle = Circle (Point 0 0)
 baseRect :: Float -> Float -> Shape
 baseRect width height = Rectangle (Point 0 0) (Point width height)
 
+-- It's Bad way
 -- data Person = Person String String Int Float String String deriving (Show)
 --
 -- firstName :: Person -> String
