@@ -130,3 +130,5 @@ lockers =
   ,(105,(Free,"QOTSA"))
   ,(109,(Taken,"893JJ"))
   ,(110,(Taken,"99292"))]
+
+data List a = Empty | Cons a (List a) deriving (Show, Read, Eq, Ord)
